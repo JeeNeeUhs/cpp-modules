@@ -1,13 +1,46 @@
-#include <string>
-#include <iostream>
+#include "Contact.hpp"
 
-class contact {
-	private:
-		std::string FirstName;
-		std::string LastName;
-		std::string NickName;
-		std::string PhoneNumber;
-		std::string DarkestSecret;
-	// public:
-		// make some kinf of constructor
+void Contact::setFirstName(const std::string& first) {
+	firstName = first;
+}
+
+void Contact::setLastName(const std::string& last) {
+	lastName = last;
+}
+
+void Contact::setNickName(const std::string& nick) {
+	nickName = nick;
+}
+
+void Contact::setPhoneNumber(const std::string& phone) {
+	phoneNumber = phone;
+}
+
+void Contact::setDarkestSecret(const std::string& secret) {
+	darkestSecret = secret;
+}
+
+std::string Contact::getFirstName() const
+{
+	return firstName;
+}
+
+std::string Contact::getLastName() const
+{
+	return lastName;
+}
+
+std::string Contact::getNickName() const
+{
+	return nickName;
+}
+
+std::string Contact::getPhoneNumber() const
+{
+	return phoneNumber;
+}
+
+std::string Contact::getDarkestSecret() const
+{
+	return darkestSecret;
 }
