@@ -18,7 +18,9 @@ int main() {
 
 			std::cout << "First Name: ";
 			while (true) {
-				std::getline(std::cin, input);
+				if (!std::getline(std::cin, input)) {
+					return 1;
+				}
 				if (!input.empty()) {
 					contact.setFirstName(input);
 					break;
@@ -28,7 +30,9 @@ int main() {
 
 			std::cout << "Last Name: ";
 			while (true) {
-				std::getline(std::cin, input);
+				if (!std::getline(std::cin, input)) {
+					return 1;
+				}
 				if (!input.empty()) {
 					contact.setLastName(input);
 					break;
@@ -38,7 +42,9 @@ int main() {
 
 			std::cout << "Nickname: ";
 			while (true) {
-				std::getline(std::cin, input);
+				if (!std::getline(std::cin, input)) {
+					return 1;
+				}
 				if (!input.empty()) {
 					contact.setNickName(input);
 					break;
@@ -48,7 +54,9 @@ int main() {
 
 			std::cout << "Phone Number: ";
 			while (true) {
-				std::getline(std::cin, input);
+				if (!std::getline(std::cin, input)) {
+					return 1;
+				}
 				if (!input.empty()) {
 					contact.setPhoneNumber(input);
 					break;
@@ -58,7 +66,9 @@ int main() {
 
 			std::cout << "Darkest Secret: ";
 			while (true) {
-				std::getline(std::cin, input);
+				if (!std::getline(std::cin, input)) {
+					return 1;
+				}
 				if (!input.empty()) {
 					contact.setDarkestSecret(input);
 					break;
