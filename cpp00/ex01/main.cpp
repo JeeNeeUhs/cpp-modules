@@ -88,18 +88,14 @@ int main() {
 			std::cout << "Enter index to view details: ";
 			int index;
 			std::cin >> index;
-
-			// Giriş başarısızsa (harf, boşluk vs. girilirse)
 			if (std::cin.fail()) {
-				std::cin.clear(); // error durumunu sıfırla
-				std::cin.ignore(); // tamponu temizle
+				std::cin.clear();
+				std::cin.ignore();
 				std::cout << "Invalid index" << std::endl;
 				continue;
 			}
+			std::cin.ignore();
 
-			std::cin.ignore(); // \n karakterini temizle
-
-			// Geçerli index mi kontrol et
 			if (index < 0 || index >= phoneBook.getContactCount()) {
 				std::cout << "Invalid index" << std::endl;
 				continue;

@@ -23,15 +23,15 @@ static std::string formatField(const std::string& field) {
 
 void PhoneBook::displayContacts() const {
 	std::cout << std::setw(10) << "Index" << "|"
-	          << std::setw(10) << "First Name" << "|"
-	          << std::setw(10) << "Last Name" << "|"
-	          << std::setw(10) << "Nickname" << std::endl;
+			  << std::setw(10) << "First Name" << "|"
+			  << std::setw(10) << "Last Name" << "|"
+			  << std::setw(10) << "Nickname" << std::endl;
 
 	for (int i = 0; i < contactCount; ++i) {
 		std::cout << std::setw(10) << i << "|"
-		          << std::setw(10) << formatField(contacts[i].getFirstName()) << "|"
-		          << std::setw(10) << formatField(contacts[i].getLastName()) << "|"
-		          << std::setw(10) << formatField(contacts[i].getNickName()) << std::endl;
+				  << std::setw(10) << formatField(contacts[i].getFirstName()) << "|"
+				  << std::setw(10) << formatField(contacts[i].getLastName()) << "|"
+				  << std::setw(10) << formatField(contacts[i].getNickName()) << std::endl;
 	}
 }
 
