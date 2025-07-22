@@ -97,7 +97,6 @@ void Account::_displayTimestamp() {
 	std::tm *tm = std::localtime(&now);
 
 	char buffer[20];
-	// İstenen format: "YYYYMMDD_HHMMSS"
 	std::strftime(buffer, sizeof(buffer), "%Y%m%d_%H%M%S", tm);
 
 	std::cout << "[" << buffer << "]";
