@@ -1,7 +1,7 @@
-NAME        = 
+NAME        = zombies
 CXX         = c++
 CXXFLAGS    = -Wall -Wextra -Werror -std=c++98
-SRCS        = 
+SRCS        = main.cpp Zombie.cpp zombieHorde.cpp
 OBJS        = $(addprefix $(BUILD), $(SRCS:.cpp=.o))
 RM          = rm -rf
 BUILD       = build/
