@@ -93,9 +93,12 @@ void Account::displayStatus() const {
 }
 
 void Account::_displayTimestamp() {
-	std::time_t now = std::time(nullptr);
+	std::time_t now = std::time(NULL);
 	std::tm *tm = std::localtime(&now);
-	std::cout << "["
-			  << std::put_time(tm, "%Y%m%d_%H%M%S")
-			  << "]";
+
+	char buffer[20];
+	// İstenen format: "YYYYMMDD_HHMMSS"
+	std::strftime(buffer, sizeof(buffer), "%Y%m%d_%H%M%S", tm);
+
+	std::cout << "[" << buffer << "]";
 }
