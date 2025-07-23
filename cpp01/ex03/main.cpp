@@ -12,7 +12,7 @@ int main() {
 	armedguy.attack();
 	unarmedguy.attack();
 
-	unarmedguy.setWeapon(&sword);
+	unarmedguy.setWeapon(sword);
 	unarmedguy.attack();
 	sword.setType("Axe");
 	armedguy.attack();

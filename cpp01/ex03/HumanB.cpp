@@ -3,8 +3,8 @@
 
 HumanB::HumanB(std::string name) : name(name), weapon(NULL) {}
 
-void HumanB::setWeapon(Weapon* weapon) {
-	this->weapon = weapon;
+void HumanB::setWeapon(Weapon& weapon) {
+	this->weapon = &weapon;
 }
 
 std::string HumanB::getName() const {
