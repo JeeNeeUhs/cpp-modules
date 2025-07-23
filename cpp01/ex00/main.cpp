@@ -6,6 +6,7 @@ int main() {
 	Zombie* zombie2;
 
 	zombie1 = newZombie("Zombilal");
+	randomChump("Zombot");
 	zombie2 = newZombie("Zombob");
 
 	zombie1->announce();
