@@ -2,13 +2,13 @@
 #include "Harl.hpp"
 
 int main(int argc, char **argv) {
-    Harl harl;
+	Harl harl;
 
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <level>" << std::endl;
-        return 1;
-    }
+	if (argc != 2) {
+		std::cerr << "Usage: " << argv[0] << " <level>" << std::endl;
+		return 1;
+	}
 
-    harl.complain(argv[1]);
-    return 0;
+	harl.complain(argv[1]);
+	return 0;
 }
