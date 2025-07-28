@@ -1,7 +1,7 @@
 #include <iostream>
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap() : ScavTrap("Default FragTrap") {
+FragTrap::FragTrap() : ClapTrap("Default FragTrap") {
 	std::cout << "FragTrap " << name << " created with default constructor." << std::endl;
 }
 FragTrap::FragTrap(std::string name) : ScavTrap(name) {
