@@ -2,25 +2,15 @@
 #include <cmath>
 #include "Fixed.hpp"
 
-Fixed::Fixed() : value(0) {
-	std::cout << "Default constructor called" << std::endl;
-}
+Fixed::Fixed() : value(0) {}
 
-Fixed::Fixed(const int first) : value(first << fractionalBits) {
-	std::cout << "Int constructor called" << std::endl;
-}
+Fixed::Fixed(const int first) : value(first << fractionalBits) {}
 
-Fixed::Fixed(const float first) : value(roundf(first * (1 << fractionalBits))) {
-	std::cout << "Float constructor called" << std::endl;
-}
+Fixed::Fixed(const float first) : value(roundf(first * (1 << fractionalBits))) {}
 
-Fixed::Fixed(const Fixed &other) : value(other.value) {
-	std::cout << "Copy constructor called" << std::endl;
-}
+Fixed::Fixed(const Fixed &other) : value(other.value) {}
 
-Fixed::~Fixed() {
-	std::cout << "Destructor called" << std::endl;
-}
+Fixed::~Fixed() {}
 
 bool Fixed::operator>(const Fixed &other) const {
 	return this->value > other.value;
@@ -59,10 +49,6 @@ Fixed Fixed::operator*(const Fixed &other) {
 }
 
 Fixed Fixed::operator/(const Fixed &other) {
-	if (other.value == 0) {
-		std::cerr << "Division by zero!" << std::endl;
-		return Fixed(0);
-	}
 	return Fixed(this->toFloat() / other.toFloat());
 }
 

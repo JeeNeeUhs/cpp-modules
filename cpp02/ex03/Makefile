@@ -1,7 +1,7 @@
 NAME        = a.out
 CXX         = c++
 CXXFLAGS    = -Wall -Wextra -Werror -std=c++98
-SRCS        = main.cpp Fixed.cpp Point.cpp
+SRCS        = main.cpp Fixed.cpp Point.cpp bsp.cpp
 OBJS        = $(addprefix $(BUILD), $(SRCS:.cpp=.o))
 RM          = rm -rf
 BUILD       = build/
