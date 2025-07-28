@@ -110,20 +110,20 @@ int Fixed::toInt() const {
 	return this->value >> fractionalBits;
 }
 
-int Fixed::min(Fixed &a, Fixed &b) {
-	return (a < b) ? a.toInt() : b.toInt();
+Fixed& Fixed::min(Fixed &a, Fixed &b) {
+	return (a < b) ? a : b;
 }
 
-int Fixed::min(const Fixed &a, const Fixed &b) {
-	return (a < b) ? a.toInt() : b.toInt();
+const Fixed& Fixed::min(const Fixed &a, const Fixed &b) {
+	return (a < b) ? a : b;
 }
 
-int Fixed::max(Fixed &a, Fixed &b) {
-	return (a > b) ? a.toInt() : b.toInt();
+Fixed& Fixed::max(Fixed &a, Fixed &b) {
+	return (a > b) ? a : b;
 }
 
-int Fixed::max(const Fixed &a, const Fixed &b) {
-	return (a > b) ? a.toInt() : b.toInt();
+const Fixed& Fixed::max(const Fixed &a, const Fixed &b) {
+	return (a > b) ? a : b;
 }
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed) {
