@@ -13,8 +13,9 @@ Fixed::Fixed(const float first) : value(static_cast<int>(first * (1 << fractiona
 	std::cout << "Float constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &other) : value(other.value) {
+Fixed::Fixed(const Fixed &other) {
 	std::cout << "Copy constructor called" << std::endl;
+	*this = other;
 }
 
 Fixed::~Fixed() {
@@ -22,7 +23,7 @@ Fixed::~Fixed() {
 }
 
 Fixed &Fixed::operator=(const Fixed &other) {
-	std::cout << "Assignation operator called" << std::endl;
+	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other) {
 		this->value = other.value;
 	}
