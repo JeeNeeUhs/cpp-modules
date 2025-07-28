@@ -4,11 +4,11 @@
 FragTrap::FragTrap() : ClapTrap("Default FragTrap") {
 	std::cout << "FragTrap " << name << " created with default constructor." << std::endl;
 }
-FragTrap::FragTrap(std::string name) : ScavTrap(name) {
+FragTrap::FragTrap(std::string name) : ClapTrap(name) {
 	std::cout << "FragTrap " << name << " created with parameterized constructor." << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap& other) : ScavTrap(other) {
+FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
 	std::cout << "FragTrap " << name << " created with copy constructor." << std::endl;
 }
 
@@ -18,7 +18,7 @@ FragTrap::~FragTrap() {
 
 FragTrap& FragTrap::operator=(const FragTrap& other) {
 	if (this != &other) {
-		ScavTrap::operator=(other);
+		ClapTrap::operator=(other);
 		std::cout << "FragTrap " << name << " assigned from another FragTrap." << std::endl;
 	}
 	return *this;
