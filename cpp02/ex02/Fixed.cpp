@@ -59,10 +59,6 @@ Fixed Fixed::operator*(const Fixed &other) {
 }
 
 Fixed Fixed::operator/(const Fixed &other) {
-	if (other.value == 0) {
-		std::cerr << "Division by zero!" << std::endl;
-		return Fixed(0);
-	}
 	return Fixed(this->toFloat() / other.toFloat());
 }
 
