@@ -45,6 +45,3 @@ void ScavTrap::attack(const std::string& target) {
 		std::cout << "ScavTrap " << name << " cannot attack!" << std::endl;
 	}
 }
-
-
-

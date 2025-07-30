@@ -6,7 +6,7 @@ DiamondTrap::DiamondTrap() : ClapTrap("Default_clap_name"), FragTrap(), ScavTrap
 	hitPoints = 100;
 	energyPoints = 50;
 	attackDamage = 30;
-}	
+}
 
 DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(), ScavTrap(), name(name) {
 	std::cout << "DiamondTrap " << this->name << " created with parameterized constructor." << std::endl;

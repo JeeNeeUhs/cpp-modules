@@ -59,4 +59,3 @@ void ClapTrap::beRepaired(unsigned int amount) {
 		std::cout << "ClapTrap " << name << " cannot be repaired!" << std::endl;
 	}
 }
-
