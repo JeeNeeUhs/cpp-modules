@@ -14,6 +14,7 @@ int main() {
 	scavtrap2.attack("target2");
 	scavtrap3.beRepaired(50);
 	scavtrap4.takeDamage(5);
+	scavtrap1.guardGate();
 	std::cout << "-------------------------------------------" << std::endl;
 
 	for (int i = 0; i < 50; ++i) {
