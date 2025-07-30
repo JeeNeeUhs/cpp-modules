@@ -1,18 +1,23 @@
 #include <iostream>
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap("Default"), FragTrap("Default"), ScavTrap("Default"), name("Default") {
+DiamondTrap::DiamondTrap() : ClapTrap("Default_clap_name"), FragTrap(), ScavTrap(), name("Default") {
 	std::cout << "DiamondTrap " << name << " created with default constructor." << std::endl;
+	hitPoints = 100;
+	energyPoints = 50;
+	attackDamage = 30;
 }	
 
-DiamondTrap::DiamondTrap(std::string name) 
-	: ClapTrap(name + "_clap_name"), FragTrap(name), ScavTrap(name), name(name) {
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(), ScavTrap(), name(name) {
 	std::cout << "DiamondTrap " << this->name << " created with parameterized constructor." << std::endl;
+	hitPoints = 100;
+	energyPoints = 50;
+	attackDamage = 30;
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap& other) 
-	: ClapTrap(other.ClapTrap::name), FragTrap(other), ScavTrap(other), name(other.name) {
+DiamondTrap::DiamondTrap(const DiamondTrap& other) : ClapTrap(other.ClapTrap::name), FragTrap(other), ScavTrap(other), name(other.name) {
 	std::cout << "DiamondTrap " << name << " created with copy constructor." << std::endl;
+	*this = other;
 }
 
 DiamondTrap::~DiamondTrap() {
@@ -33,4 +38,3 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
 void DiamondTrap::whoAmI(void) {
 	std::cout << "I am " << name << " and my ClapTrap name is " << ClapTrap::name << "." << std::endl;
 }
-

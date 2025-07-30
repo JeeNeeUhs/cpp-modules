@@ -2,16 +2,11 @@
 #include "DiamondTrap.hpp"
 
 int main() {
-	DiamondTrap dt1("Diamond1");
-	DiamondTrap dt2("Diamond2");
+	DiamondTrap d1("D1");
 
-	dt1.whoAmI();
-	dt2.whoAmI();
-
-	dt1.attack("target1");
-	dt2.takeDamage(5);
-	dt2.beRepaired(3);
-	dt2.highFivesGuys();
-
-	return 0;
+	d1.attack("d2");
+	d1.guardGate();
+	d1.highFivesGuys();
+	d1.whoAmI();
+	d1.beRepaired(10);
 }
