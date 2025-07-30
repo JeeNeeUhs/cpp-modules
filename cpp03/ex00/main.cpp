@@ -11,6 +11,7 @@ int main() {
 
 	claptrap1.attack("target");
 	claptrap2.takeDamage(1000);
+	claptrap2.attack("target2");
 	claptrap3.beRepaired(50);
 	claptrap4.takeDamage(5);
 	std::cout << "-------------------------------------------" << std::endl;
