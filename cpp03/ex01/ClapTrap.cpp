@@ -9,8 +9,7 @@ ClapTrap::ClapTrap(std::string name) : name(name), hitPoints(10), energyPoints(1
 	std::cout << "ClapTrap " << name << " created with parameterized constructor." << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other) 
-	: name(other.name), hitPoints(other.hitPoints), energyPoints(other.energyPoints), attackDamage(other.attackDamage) {
+ClapTrap::ClapTrap(const ClapTrap& other) : name(other.name), hitPoints(other.hitPoints), energyPoints(other.energyPoints), attackDamage(other.attackDamage) {
 	std::cout << "ClapTrap " << name << " created with copy constructor." << std::endl;
 }
 
