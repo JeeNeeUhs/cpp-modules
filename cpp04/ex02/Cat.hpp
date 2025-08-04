@@ -15,6 +15,7 @@ class Cat : public Animal {
 
 		Cat& operator=(const Cat& other);
 
+		Brain* getBrain();
 		void makeSound() const;
 };
 
