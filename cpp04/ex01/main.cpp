@@ -19,6 +19,13 @@ int main() {
 	for (int i = 0; i < 4; ++i) {
 		delete animals[i];
 	}
+	std::cout << "----------------------------------------------------------" << std::endl;
+
+	Dog dog;
+
+	dog.makeSound();
+	dog.getBrain()->setIdea(0, "Fetch the ball");
+	std::cout << "Dog's first idea: " << dog.getBrain()->getIdea(0) << std::endl;
 
 	return 0;
 }
