@@ -1,7 +1,7 @@
-NAME        =
+NAME        = a.out
 CXX         = c++
 CXXFLAGS    = -Wall -Wextra -Werror -std=c++98
-SRCS        =
+SRCS        = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp ICharacter.cpp IMateriaSource.cpp MateriaSource.cpp 
 OBJS        = $(addprefix $(BUILD), $(SRCS:.cpp=.o))
 RM          = rm -rf
 BUILD       = build/
