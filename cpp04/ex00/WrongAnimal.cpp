@@ -31,4 +31,3 @@ const std::string &WrongAnimal::getType() const {
 void WrongAnimal::makeSound() const {
 	std::cout << "Random wrong animal sound" << std::endl;
 }
-
