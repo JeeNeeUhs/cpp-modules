@@ -22,10 +22,14 @@ int main() {
 	std::cout << "----------------------------------------------------------" << std::endl;
 
 	Dog dog;
+	Dog copiedDog;
 
 	dog.makeSound();
 	dog.getBrain()->setIdea(0, "Fetch the ball");
 	std::cout << "Dog's first idea: " << dog.getBrain()->getIdea(0) << std::endl;
+
+	copiedDog = dog;
+	std::cout << "Copied Dog's first idea: " << copiedDog.getBrain()->getIdea(0) << std::endl;
 
 	return 0;
 }
