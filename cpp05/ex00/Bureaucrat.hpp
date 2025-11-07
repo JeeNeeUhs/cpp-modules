@@ -13,7 +13,7 @@ class Bureaucrat {
 		int grade;
 
 	public:
-		Bureaucrat();	
+		Bureaucrat();
 		Bureaucrat(const std::string &name, int grade);
 		Bureaucrat(const Bureaucrat &other);
 
@@ -38,7 +38,6 @@ class Bureaucrat {
 					return "Grade too low";
 				}
 		};
-		
 };
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat);
