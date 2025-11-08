@@ -1,7 +1,7 @@
-#include <Form.hpp>
-#include <Bureaucrat.hpp>
+#include "Form.hpp"
+#include "Bureaucrat.hpp"
 
-Form::Form() : name("Default"), reqtosign(1), reqtoexec(1), signstatus(false) {}
+Form::Form() : name("Default"), signstatus(false), reqtosign(1), reqtoexec(1) {}
 
 Form::Form(const std::string &name, int reqtosign, int reqtoexec) : name(name) {
 	if (reqtosign < minGrade) {
@@ -17,7 +17,7 @@ Form::Form(const std::string &name, int reqtosign, int reqtoexec) : name(name) {
 	this->reqtoexec = reqtoexec;
 }
 
-Form::Form(const Form &other) : name(other.name), reqtosign(other.reqtosign), reqtoexec(other.reqtoexec), signstatus(other.signstatus) {}
+Form::Form(const Form &other) : name(other.name), signstatus(other.signstatus), reqtosign(other.reqtosign), reqtoexec(other.reqtoexec) {}
 
 Form &Form::operator=(const Form &other) {
 	if (this != &other) {
@@ -54,5 +54,6 @@ void Form::beSigned(const Bureaucrat &other) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &Form) {
-
+	os << "Form Name: " << Form.getName() << ", Signed: " << (Form.getSign() ? "Yes" : "No") << ", Required grade to sign: " << Form.getReqToSign() << ", Required grade to execute: " << Form.getReqtoexec();
+	return os;
 }
