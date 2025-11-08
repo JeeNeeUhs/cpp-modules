@@ -4,9 +4,9 @@ Bureaucrat::Bureaucrat() : name("Default"), grade(150) {}
 
 Bureaucrat::Bureaucrat(const std::string &name, int grade) : name(name) {
 	if (grade < minGrade) {
-		throw HighGrade();
+		throw GradeTooHighException();
 	} else if (grade > maxGrade) {
-		throw LowGrade();
+		throw GradeTooLowException();
 	}
 	this->grade = grade;
 }
@@ -32,14 +32,14 @@ int Bureaucrat::getGrade() const {
 
 void Bureaucrat::incrementGrade() {
 	if (grade <= minGrade) {
-		throw HighGrade();
+		throw GradeTooHighException();
 	}
 	--grade;
 }
 
 void Bureaucrat::decrementGrade() {
 	if (grade >= maxGrade) {
-		throw LowGrade();
+		throw GradeTooLowException();
 	}
 	++grade;
 }
