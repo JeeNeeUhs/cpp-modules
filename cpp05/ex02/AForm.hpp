@@ -24,7 +24,7 @@ class AForm {
 
 		AForm &operator=(const AForm &other);
 
-		~AForm();
+		virtual ~AForm();
 
 		std::string getName() const;
 		bool getSign() const;
