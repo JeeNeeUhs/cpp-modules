@@ -22,7 +22,16 @@ static int keyDedect(std::string input, char key) {
 	return 0;
 }
 
+static int isPesudoLiteral(std::string input) {
+	if (input == "nan" || input == "+inf" || input == "-inf" ||
+		input == "nanf" || input == "+inff" || input == "-inff")
+		return 1;
+	return 0;
+}
+
 static int getType(std::string input) {
+	if (isPesudoLiteral(input))
+		return 5; // double for pesudo literals
 	if (input.length() == 1 && !isdigit(input[0]))
 		return 1; // char
 	if (keyDedect(input, '.') && !input.empty() && input[input.length() - 1] == 'f' && input.find('.') != input.length() - 1)
@@ -38,6 +47,18 @@ void ScalarConverter::convert(const std::string input) {
 	int type = getType(input);
 	if (type == 0) {
 		std::cout << "Error: Unknown type" << std::endl;
+		return;
+	}
+	if (type == 5) {
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		if (input[input.length() - 1] == 'f') {
+			std::cout << "float: " << input << std::endl;
+			std::cout << "double: " << input.substr(0, input.length() - 1) << std::endl;
+		} else {
+			std::cout << "float: " << input << "f" << std::endl;
+			std::cout << "double: " << input << std::endl;
+		}
 		return;
 	}
 	if (type == 1) {

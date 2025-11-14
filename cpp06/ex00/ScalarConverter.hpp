@@ -20,6 +20,7 @@ class ScalarConverter {
 		// int    = 2
 		// float  = 3
 		// double = 4
+		// pesudo literal = 5
 
 
 		// char convertChar(std::string input);
