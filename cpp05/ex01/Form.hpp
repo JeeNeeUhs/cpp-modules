@@ -17,7 +17,6 @@ class Form {
 		static const int maxGrade = 150;
 
 	public:
-
 		Form();
 		Form(const std::string &name, int reqtosign, int reqtoexec);
 		Form(const Form &other);
