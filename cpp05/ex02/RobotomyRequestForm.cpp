@@ -28,4 +28,4 @@ void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
 	} else {
 		std::cout << "The robotomy failed on " << target << "." << std::endl;
 	}
-	
+}
