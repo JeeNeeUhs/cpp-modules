@@ -29,14 +29,28 @@ static int isPesudoLiteral(std::string input) {
 	return 0;
 }
 
+static int stringCounter(std::string input, char key) {
+	int count = 0;
+	for (size_t i = 0; i < input.length(); i++) {
+		if (input[i] == key)
+			count++;
+	}
+	return count;
+}
+
+static char getLastIndexOfChar(std::string input) {
+	return input[input.length() - 1];
+}
+	
+
 static int getType(std::string input) {
 	if (isPesudoLiteral(input))
 		return 5; // double for pesudo literals
 	if (input.length() == 1 && !isdigit(input[0]))
 		return 1; // char
-	if (keyDedect(input, '.') && !input.empty() && input[input.length() - 1] == 'f' && input.find('.') != input.length() - 1)
+	if (input.find_first_not_of("0123456789+-.f")  && keyDedect(input, '.') && !input.empty() && getLastIndexOfChar(input) == 'f' && stringCounter(input, 'f') == 1 && stringCounter(input, '.') == 1)
 		return 3; // float
-	if (keyDedect(input, '.') && input.find('.') != input.length() - 1)
+	if (input.find_first_not_of("0123456789+-.")  && keyDedect(input, '.') && !input.empty() && stringCounter(input, '.') == 1)
 		return 4; // double
 	if (input.find_first_not_of("0123456789+-") == std::string::npos)
 		return 2; // int
@@ -71,8 +85,10 @@ void ScalarConverter::convert(const std::string input) {
 		int i = std::atoi(input.c_str());
 		if (i >= 32 && i <= 126)
 			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
-		else
+		else if (i >= 0 && i < 256)
 			std::cout << "char: Non displayable" << std::endl;
+		else 
+			std::cout << "char: impossible" << std::endl;
 		std::cout << "int: " << i << std::endl;
 		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
 		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
