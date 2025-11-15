@@ -17,7 +17,6 @@ class AForm {
 		static const int maxGrade = 150;
 
 	public:
-
 		AForm();
 		AForm(const std::string &name, int reqtosign, int reqtoexec);
 		AForm(const AForm &other);
