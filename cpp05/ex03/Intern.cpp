@@ -50,5 +50,5 @@ AForm* (Intern::*formCreations[3])(const std::string&) = {
 	}
 
 	std::cout << "Intern could not find the form: " << formName << std::endl;
-	return nullptr;
+	return 0;
 }
