@@ -37,10 +37,10 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
 	};
 
 AForm* (Intern::*formCreations[3])(const std::string&) = {
-        &Intern::createShrubberyCreationForm,
-        &Intern::createRobotomyRequestForm,
-        &Intern::createPresidentialPardonForm
-    };
+		&Intern::createShrubberyCreationForm,
+		&Intern::createRobotomyRequestForm,
+		&Intern::createPresidentialPardonForm
+	};
 
 	for (int i = 0; i < 3; ++i) {
 		if (formName == formNames[i]) {
