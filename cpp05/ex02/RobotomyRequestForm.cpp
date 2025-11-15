@@ -1,5 +1,7 @@
 #include "RobotomyRequestForm.hpp"
 #include "Bureaucrat.hpp"
+#include <cstdlib>
+#include <sys/time.h>
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm", 72, 45), target(target) {}
 
@@ -23,7 +25,10 @@ void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
 		throw AForm::GradeTooLowException();
 	}
 	std::cout << "Bzzzzzz... Drilling noises..." << std::endl;
-	if (rand() % 2) {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	std::srand(tv.tv_usec);
+	if (std::rand() % 2) {
 		std::cout << target << " has been robotomized successfully!" << std::endl;
 	} else {
 		std::cout << "The robotomy failed on " << target << "." << std::endl;
