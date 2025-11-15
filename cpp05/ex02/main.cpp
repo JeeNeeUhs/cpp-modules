@@ -4,42 +4,89 @@
 #include "PresidentialPardonForm.hpp"
 
 int main() {
-	Bureaucrat johndoe("John Doe", 1);
 	{
-		ShrubberyCreationForm formshrub("target1");
-		johndoe.signForm(formshrub);
+		std::cout << "Testing ShrubberyCreationForm" << std::endl;
+		Bureaucrat bureaucrat("John Doe", 146);
+		ShrubberyCreationForm form("Form");
+
+		bureaucrat.signForm(form);
+
 		try {
-			formshrub.execute(johndoe);
+			while (bureaucrat.getGrade() > 144) {
+				bureaucrat.incrementGrade();
+			}
 		} catch (const std::exception &e) {
 			std::cerr << e.what() << std::endl;
 		}
-	}
-	{
-		RobotomyRequestForm formrobo("target2");
-		johndoe.signForm(formrobo);
+
+		bureaucrat.signForm(form);
+		bureaucrat.executeForm(form);
+
 		try {
-			formrobo.execute(johndoe);
+			while (bureaucrat.getGrade() > 135) {
+				bureaucrat.incrementGrade();
+			}
 		} catch (const std::exception &e) {
 			std::cerr << e.what() << std::endl;
 		}
+		
+		bureaucrat.executeForm(form);
 	}
 	{
-		PresidentialPardonForm formpres("target3");
-		johndoe.signForm(formpres);
+		std::cout << "\nTesting RobotomyRequestForm" << std::endl;
+		Bureaucrat bureaucrat("John Doe", 73);
+		RobotomyRequestForm form("Form");
+
+		bureaucrat.signForm(form);
+
 		try {
-			formpres.execute(johndoe);
+			while (bureaucrat.getGrade() > 71) {
+				bureaucrat.incrementGrade();
+			}
 		} catch (const std::exception &e) {
 			std::cerr << e.what() << std::endl;
 		}
-	}
-	{
-		Bureaucrat janedoe("Jane Doe", 150);
-		ShrubberyCreationForm formshrub("target4");
-		janedoe.signForm(formshrub);
+
+		bureaucrat.signForm(form);
+		bureaucrat.executeForm(form);
+
 		try {
-			formshrub.execute(janedoe);
+			while (bureaucrat.getGrade() > 44) {
+				bureaucrat.incrementGrade();
+			}
 		} catch (const std::exception &e) {
 			std::cerr << e.what() << std::endl;
 		}
+
+			bureaucrat.executeForm(form);
 	}
+	{
+		std::cout << "\nTesting PresidentialPardonForm" << std::endl;
+		Bureaucrat bureaucrat("John Doe", 26);
+		PresidentialPardonForm form("Form");
+
+		bureaucrat.signForm(form);
+
+		try {
+			while (bureaucrat.getGrade() > 24) {
+				bureaucrat.incrementGrade();
+			}
+		} catch (const std::exception &e) {
+			std::cerr << e.what() << std::endl;
+		}
+
+		bureaucrat.signForm(form);
+		bureaucrat.executeForm(form);
+
+		try {
+			while (bureaucrat.getGrade() > 4) {
+				bureaucrat.incrementGrade();
+			}
+		} catch (const std::exception &e) {
+			std::cerr << e.what() << std::endl;
+		}
+
+		bureaucrat.executeForm(form);
+	}
+	return 0;
 }
