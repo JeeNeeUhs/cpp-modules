@@ -23,8 +23,8 @@ static int keyDedect(std::string input, char key) {
 }
 
 static int isPesudoLiteral(std::string input) {
-	if (input == "nan" || input == "+inf" || input == "-inf" ||
-		input == "nanf" || input == "+inff" || input == "-inff")
+	if (input == "nan" || input == "+inf" || input == "-inf" || input == "inf" ||
+		input == "nanf" || input == "+inff" || input == "-inff" || input == "inff")
 		return 1;
 	return 0;
 }
@@ -48,9 +48,12 @@ static int getType(std::string input) {
 		return 5; // double for pesudo literals
 	if (input.length() == 1 && !isdigit(input[0]))
 		return 1; // char
-	if (input.find_first_not_of("0123456789+-.f")  && keyDedect(input, '.') && !input.empty() && getLastIndexOfChar(input) == 'f' && stringCounter(input, 'f') == 1 && stringCounter(input, '.') == 1)
+	if (input.find_first_not_of("0123456789+-.f")  && keyDedect(input, '.') && !input.empty() && 
+		getLastIndexOfChar(input) == 'f' && stringCounter(input, 'f') == 1 && stringCounter(input, '.') == 1 &&
+		input[input.length() - 2] != '.')
 		return 3; // float
-	if (input.find_first_not_of("0123456789+-.")  && keyDedect(input, '.') && !input.empty() && stringCounter(input, '.') == 1)
+	if (input.find_first_not_of("0123456789+-.")  && keyDedect(input, '.') && !input.empty() && 
+		stringCounter(input, '.') == 1 && getLastIndexOfChar(input) != '.')
 		return 4; // double
 	if (input.find_first_not_of("0123456789+-") == std::string::npos)
 		return 2; // int
@@ -82,20 +85,25 @@ void ScalarConverter::convert(const std::string input) {
 		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
 		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
 	} else if (type == 2) {
-		int i = std::atoi(input.c_str());
+		long i = std::atol(input.c_str());
 		if (i >= 32 && i <= 126)
 			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
 		else if (i >= 0 && i < 256)
 			std::cout << "char: Non displayable" << std::endl;
 		else 
 			std::cout << "char: impossible" << std::endl;
-		std::cout << "int: " << i << std::endl;
+		if (i < INT32_MIN || i > INT32_MAX)
+			std::cout << "int: impossible" << std::endl;
+		else 
+			std::cout << "int: " << i << std::endl;
 		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
 		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
 	} else if (type == 3) {
 		float f = std::atof(input.c_str());
 		if (f >= 32 && f <= 126)
 			std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
+		else if (f >= 0 && f < 256)
+			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: Non displayable" << std::endl;
 		std::cout << "int: " << static_cast<int>(f) << std::endl;
