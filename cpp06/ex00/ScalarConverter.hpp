@@ -3,6 +3,15 @@
 
 #include <string>
 
+enum types {
+	INVALID,
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE,
+	PSEUDO
+};
+
 class ScalarConverter {
 	private:
 		ScalarConverter();
@@ -21,6 +30,8 @@ class ScalarConverter {
 		// float  = 3
 		// double = 4
 		// pesudo literal = 5
+		// invalid = 0
+		// changed to enum types
 
 
 		// char convertChar(std::string input);

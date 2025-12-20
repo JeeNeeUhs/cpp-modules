@@ -45,28 +45,28 @@ static char getLastIndexOfChar(std::string input) {
 
 static int getType(std::string input) {
 	if (isPesudoLiteral(input))
-		return 5; // double for pesudo literals
+		return PSEUDO;
 	if (input.length() == 1 && !isdigit(input[0]))
-		return 1; // char
+		return CHAR; 
 	if (input.find_first_not_of("0123456789+-.f")  && keyDedect(input, '.') && !input.empty() && 
 		getLastIndexOfChar(input) == 'f' && stringCounter(input, 'f') == 1 && stringCounter(input, '.') == 1 &&
 		input[input.length() - 2] != '.')
-		return 3; // float
+		return FLOAT;
 	if (input.find_first_not_of("0123456789+-.")  && keyDedect(input, '.') && !input.empty() && 
 		stringCounter(input, '.') == 1 && getLastIndexOfChar(input) != '.')
-		return 4; // double
+		return DOUBLE;
 	if (input.find_first_not_of("0123456789+-") == std::string::npos)
-		return 2; // int
-	return 0; // unknown
+		return INT;
+	return INVALID;
 }
 
 void ScalarConverter::convert(const std::string input) {
 	int type = getType(input);
-	if (type == 0) {
+	if (type == INVALID) {
 		std::cout << "Error: Unknown type" << std::endl;
 		return;
 	}
-	if (type == 5) {
+	if (type == PSEUDO) {
 		std::cout << "char: impossible" << std::endl;
 		std::cout << "int: impossible" << std::endl;
 		if (input[input.length() - 1] == 'f') {
@@ -78,13 +78,13 @@ void ScalarConverter::convert(const std::string input) {
 		}
 		return;
 	}
-	if (type == 1) {
+	if (type == CHAR) {
 		char c = input[0];
 		std::cout << "char: '" << c << "'" << std::endl;
 		std::cout << "int: " << static_cast<int>(c) << std::endl;
 		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
 		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
-	} else if (type == 2) {
+	} else if (type == INT) {
 		long i = std::atol(input.c_str());
 		if (i >= 32 && i <= 126)
 			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
@@ -98,7 +98,7 @@ void ScalarConverter::convert(const std::string input) {
 			std::cout << "int: " << i << std::endl;
 		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
 		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
-	} else if (type == 3) {
+	} else if (type == FLOAT) {
 		float f = std::atof(input.c_str());
 		if (f >= 32 && f <= 126)
 			std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
@@ -109,7 +109,7 @@ void ScalarConverter::convert(const std::string input) {
 		std::cout << "int: " << static_cast<int>(f) << std::endl;
 		std::cout << "float: " << f << "f" << std::endl;
 		std::cout << "double: " << static_cast<double>(f) << std::endl;
-	} else if (type == 4) {
+	} else if (type == DOUBLE) {
 		double d = std::atof(input.c_str());
 		if (d >= 32 && d <= 126)
 			std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
