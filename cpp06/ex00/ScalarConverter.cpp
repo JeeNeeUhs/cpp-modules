@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <iomanip>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -46,7 +47,7 @@ static char getLastIndexOfChar(std::string input) {
 static int getType(std::string input) {
 	if (isPesudoLiteral(input))
 		return PSEUDO;
-	if (input.length() == 1 && !isdigit(input[0]))
+	if (input.length() == 1 && !isdigit(input[0]) && isprint(input[0]))
 		return CHAR; 
 	if (input.find_first_not_of("0123456789+-.f")  && keyDedect(input, '.') && !input.empty() && 
 		getLastIndexOfChar(input) == 'f' && stringCounter(input, 'f') == 1 && stringCounter(input, '.') == 1 &&
@@ -60,65 +61,92 @@ static int getType(std::string input) {
 	return INVALID;
 }
 
+static void printChar(char c) {
+	if (isprint(c))
+		std::cout << "char: '" << c << "'" << std::endl;
+	else
+		std::cout << "char: Non displayable" << std::endl;
+	std::cout << "int: " << static_cast<int>(c) << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(c) << "f" << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(c) << std::endl;
+}
+
+static void printNumber(long double num) {
+	// print char
+	if (num < 0 || num > 127)
+		std::cout << "char: impossible" << std::endl;
+	else if (!isprint(static_cast<char>(num)))
+		std::cout << "char: Non displayable" << std::endl;
+	else
+		std::cout << "char: '" << static_cast<char>(num) << "'" << std::endl;
+
+	// print int
+	if (num < std::numeric_limits<int>::min() || num > std::numeric_limits<int>::max())
+		std::cout << "int: impossible" << std::endl;
+	else 
+		std::cout << "int: " << static_cast<int>(num) << std::endl;
+
+	// print float
+	if (num < -std::numeric_limits<float>::max())
+		std::cout << "float: -inff" << std::endl;
+	else if (num > std::numeric_limits<float>::max())
+		std::cout << "float: +inff" << std::endl;
+	else
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(num) << "f" << std::endl;
+
+	// print double
+	if (num < -std::numeric_limits<double>::max())
+		std::cout << "double: -inf" << std::endl;
+	else if (num > std::numeric_limits<double>::max())
+		std::cout << "double: +inf" << std::endl;
+	else
+		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(num) << std::endl;
+}
+
+static void printPesudo(std::string input) {
+	// print char
+	std::cout << "char: impossible" << std::endl;
+
+	// print int
+	std::cout << "int: impossible" << std::endl;
+
+	// print float
+	if (input == "nan" || input == "nanf")
+		std::cout << "float: nanf" << std::endl;
+	else if (input == "+inf" || input == "+inff" || input == "inf" || input == "inff")
+		std::cout << "float: +inff" << std::endl;
+	else if (input == "-inf" || input == "-inff")
+		std::cout << "float: -inff" << std::endl;
+
+	// print double
+	if (input == "nan" || input == "nanf")
+		std::cout << "double: nan" << std::endl;
+	else if (input == "+inf" || input == "+inff" || input == "inf" || input == "inff")
+		std::cout << "double: +inf" << std::endl;
+	else if (input == "-inf" || input == "-inff")
+		std::cout << "double: -inf" << std::endl;
+}
+
 void ScalarConverter::convert(const std::string input) {
 	int type = getType(input);
-	if (type == INVALID) {
-		std::cout << "Error: Unknown type" << std::endl;
-		return;
+
+	switch (type) {
+		case CHAR:
+			printChar(input[0]);
+			break;
+		case INT:
+			printNumber(strtold(input.c_str(), NULL));
+			break;
+		case FLOAT:
+			printNumber(strtold(input.c_str(), NULL));
+			break;
+		case DOUBLE:
+			printNumber(strtold(input.c_str(), NULL));
+			break;
+		case PSEUDO:
+			printPesudo(input);
+			break;
+		default:
+			std::cout << "Error: Invalid input" << std::endl;
 	}
-	if (type == PSEUDO) {
-		std::cout << "char: impossible" << std::endl;
-		std::cout << "int: impossible" << std::endl;
-		if (input[input.length() - 1] == 'f') {
-			std::cout << "float: " << input << std::endl;
-			std::cout << "double: " << input.substr(0, input.length() - 1) << std::endl;
-		} else {
-			std::cout << "float: " << input << "f" << std::endl;
-			std::cout << "double: " << input << std::endl;
-		}
-		return;
-	}
-	if (type == CHAR) {
-		char c = input[0];
-		std::cout << "char: '" << c << "'" << std::endl;
-		std::cout << "int: " << static_cast<int>(c) << std::endl;
-		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
-		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
-	} else if (type == INT) {
-		long i = std::atol(input.c_str());
-		if (i >= 32 && i <= 126)
-			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
-		else if (i >= 0 && i < 256)
-			std::cout << "char: Non displayable" << std::endl;
-		else 
-			std::cout << "char: impossible" << std::endl;
-		if (i < INT32_MIN || i > INT32_MAX)
-			std::cout << "int: impossible" << std::endl;
-		else 
-			std::cout << "int: " << i << std::endl;
-		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
-		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
-	} else if (type == FLOAT) {
-		float f = std::atof(input.c_str());
-		if (f >= 32 && f <= 126)
-			std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
-		else if (f >= 0 && f < 256)
-			std::cout << "char: Non displayable" << std::endl;
-		else
-			std::cout << "char: Non displayable" << std::endl;
-		std::cout << "int: " << static_cast<int>(f) << std::endl;
-		std::cout << "float: " << f << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(f) << std::endl;
-	} else if (type == DOUBLE) {
-		double d = std::atof(input.c_str());
-		if (d >= 32 && d <= 126)
-			std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
-		else
-			std::cout << "char: Non displayable" << std::endl;
-		std::cout << "int: " << static_cast<int>(d) << std::endl;
-		std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-		std::cout << "double: " << d << std::endl;
-	}
-	
-	
 }
