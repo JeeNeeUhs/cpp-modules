@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdlib>
 #include <iomanip>
+#include <limits>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -49,11 +50,11 @@ static int getType(std::string input) {
 		return PSEUDO;
 	if (input.length() == 1 && !isdigit(input[0]) && isprint(input[0]))
 		return CHAR; 
-	if (input.find_first_not_of("0123456789+-.f")  && keyDedect(input, '.') && !input.empty() && 
+	if (input.find_first_not_of("0123456789+-.f") == std::string::npos && keyDedect(input, '.') && !input.empty() && 
 		getLastIndexOfChar(input) == 'f' && stringCounter(input, 'f') == 1 && stringCounter(input, '.') == 1 &&
 		input[input.length() - 2] != '.')
 		return FLOAT;
-	if (input.find_first_not_of("0123456789+-.")  && keyDedect(input, '.') && !input.empty() && 
+	if (input.find_first_not_of("0123456789+-.") == std::string::npos && keyDedect(input, '.') && !input.empty() && 
 		stringCounter(input, '.') == 1 && getLastIndexOfChar(input) != '.')
 		return DOUBLE;
 	if (input.find_first_not_of("0123456789+-") == std::string::npos)
@@ -71,7 +72,65 @@ static void printChar(char c) {
 	std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(c) << std::endl;
 }
 
-static void printNumber(long double num) {
+static void printNumber(int num, int overflow) {
+	// print char
+	if (num < 0 || num > 127 || overflow)
+		std::cout << "char: impossible" << std::endl;
+	else if (!isprint(static_cast<char>(num)))
+		std::cout << "char: Non displayable" << std::endl;
+	else
+		std::cout << "char: '" << static_cast<char>(num) << "'" << std::endl;
+
+	// print int
+	if (overflow)
+		std::cout << "int: impossible" << std::endl;
+	else 
+		std::cout << "int: " << num << std::endl;
+
+	// print float
+	if (overflow)
+		std::cout << "float: logicly wrong" << std::endl;
+	else
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(num) << "f" << std::endl;
+
+	// print double
+	if (overflow)
+		std::cout << "double: logicly wrong" << std::endl;
+	else
+		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(num) << std::endl;
+}
+
+static void printNumber(float num, int overflow) {
+	// print char
+	if (num < 0 || num > 127)
+		std::cout << "char: impossible" << std::endl;
+	else if (!isprint(static_cast<char>(num)))
+		std::cout << "char: Non displayable" << std::endl;
+	else
+		std::cout << "char: '" << static_cast<char>(num) << "'" << std::endl;
+
+	// print int
+	if (num < std::numeric_limits<int>::min() || num > std::numeric_limits<int>::max())
+		std::cout << "int: impossible" << std::endl;
+	else 
+		std::cout << "int: " << static_cast<int>(num) << std::endl;
+
+	// print float
+	if (num < -std::numeric_limits<float>::max())
+		std::cout << "float: -inff" << std::endl;
+	else if (num > std::numeric_limits<float>::max())
+		std::cout << "float: +inff" << std::endl;
+	else
+		std::cout << "float: " << std::fixed << std::setprecision(1) << num << "f" << std::endl;
+
+	// print double
+	if (overflow)
+		std::cout << "double: logicly wrong" << std::endl;
+	else
+		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(num) << std::endl;
+}
+
+static void printNumber(double num) {
 	// print char
 	if (num < 0 || num > 127)
 		std::cout << "char: impossible" << std::endl;
@@ -100,7 +159,7 @@ static void printNumber(long double num) {
 	else if (num > std::numeric_limits<double>::max())
 		std::cout << "double: +inf" << std::endl;
 	else
-		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(num) << std::endl;
+		std::cout << "double: " << std::fixed << std::setprecision(1) << num << std::endl;
 }
 
 static void printPesudo(std::string input) {
@@ -129,19 +188,32 @@ static void printPesudo(std::string input) {
 
 void ScalarConverter::convert(const std::string input) {
 	int type = getType(input);
+	int overflow;
+	long templ;
+	long double templd;
 
 	switch (type) {
 		case CHAR:
 			printChar(input[0]);
 			break;
 		case INT:
-			printNumber(strtold(input.c_str(), NULL));
+			templ = strtol(input.c_str(), NULL, 10);
+			if (templ < std::numeric_limits<int>::min() || templ > std::numeric_limits<int>::max())
+				overflow = 1;
+			else
+				overflow = 0;
+			printNumber(atoi(input.c_str()), overflow);
 			break;
 		case FLOAT:
-			printNumber(strtold(input.c_str(), NULL));
+			templd = strtold(input.c_str(), NULL);
+			if (templd < -std::numeric_limits<float>::max() || templd > std::numeric_limits<float>::max())
+				overflow = 1;
+			else
+				overflow = 0;
+			printNumber(strtof(input.c_str(), NULL), overflow);
 			break;
 		case DOUBLE:
-			printNumber(strtold(input.c_str(), NULL));
+			printNumber(strtod(input.c_str(), NULL));
 			break;
 		case PSEUDO:
 			printPesudo(input);
