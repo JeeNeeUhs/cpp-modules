@@ -3,6 +3,7 @@
 #include "B.hpp"
 #include "C.hpp"
 #include <ctime>
+#include <cstdlib>
 #include <iostream>
 
 Base *generate(void)
@@ -71,6 +72,6 @@ int main(void)
 	Base baseObj;
 
 	identify(baseObj);
-	identify(baseObj);
+
 	return 0;
 }
