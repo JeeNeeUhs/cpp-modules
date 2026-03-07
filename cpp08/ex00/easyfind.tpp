@@ -2,9 +2,8 @@
 
 template <typename T>
 typename T::iterator	easyfind(T &c, int val) {
-	for (typename T::iterator it = c.begin(); it != c.end(); it++) {
-		if (*it == val)
-			return it;
-	}
+	T::iterator it = std::find(c.begin(), c.end(), val);
+	if (it != c.end())
+		return (it);
 	throw NotFound();
 }
