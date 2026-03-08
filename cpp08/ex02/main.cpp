@@ -58,6 +58,27 @@ int main() {
 		}
 
 		std::cout << std::endl << "----- Finish -----" << std::endl;
+	}
+	{
+		std::cout << "----- Test 3 -----" << std::endl << std::endl;
+		MutantStack<std::string> mstack;
+		
+		mstack.push("Merhaba");
+		mstack.push("ben");
+		mstack.push("MutantStack");
 
+		std::cout << mstack;
+
+		std::string str;
+
+		while (!mstack.empty()) {
+			str += mstack.top() + " ";
+			mstack.pop();
+		}
+		std::cout << "Popped string: " << str << std::endl;
+
+		std::cout << mstack;
+
+		std::cout << std::endl << "----- Finish -----" << std::endl;
 	}
 }
